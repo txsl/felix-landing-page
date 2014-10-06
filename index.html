@@ -55,6 +55,11 @@
                         <li><label><input type="checkbox" name="section[]" value="books"> Books</label></li>
                         <li><label><input type="checkbox" name="section[]" value="sport"> Sport</label></li>
                         <li><label><input type="checkbox" name="section[]" value="features"> Features</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="copyediting"> Copy Editing</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="photodesign"> Photography/Design</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="online"> Online team</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="other"> I don't mind - I want to get involved!</label></li>
+
                     </ul>
                     <button type="submit">I'm done</button>
                 </div>
@@ -167,12 +172,24 @@
         xhr.send(formdata);
     };
 
+    var sectionListsSubmit = function() {
+        var formdata = new FormData();
+        formdata.append("email", document.getElementById('felix-section-email-field').value);
+        ojbArray =  document.getElementById('felix-section-email-field')
+        formdata.append("sections", document.getElementById())
+    };
+
     document.getElementById('weekly-digest').addEventListener('submit', function(ev) {
         ev.preventDefault();
 
         advanceStage();
         weeklyDigestSubmit();
     });
+
+    document.getElementById('felix-section-email-field').addEventListener('submit', function(ev) {
+        ev.preventDefault();
+    });
+
 })();
 </script>
 </body>
