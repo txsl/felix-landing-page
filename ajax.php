@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 
 $email = $_POST['email'];
 
-if(strcmp($_POST['want_to_help'], "true"))
+if(!strcmp($_POST['want_to_help'], "true"))
 {
 	$involved = True;
 }
