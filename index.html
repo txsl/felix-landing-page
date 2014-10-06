@@ -20,7 +20,7 @@
                 <div class="felix-stage felix-stage-1">
                     <h3>Sign up for our weekly digest</h3>
                     <p>Want to sign up for our weekly digest? Enter your email here:</p>
-                    <form id="weekly-digest" action="/ajax.php">
+                    <form id="weekly-digest" action="ajax.php">
                         <p id="weekly-digest-error">
                             <strong>Whoops!</strong> <span id="weekly-digest-error-placeholder"></span>
                         </p>
@@ -96,7 +96,7 @@
     var currentStage = 1;
     var stageWrapper = stages[0];
 
-    var AJAX_PATH = "/ajax.php";
+    var AJAX_PATH = "ajax.php";
     var MOCK_MODE = "";
 
     var advanceStage = function() {
@@ -157,7 +157,7 @@
             if (evt.target.response.success) {
                 weeklyDigestSubmitOk();
             } else {
-                weeklyDigestSubmitFail(evt.response.error);
+                weeklyDigestSubmitFail(evt.target.response.reason);
             }
         };
         xhr.onerror = function(evt) {
