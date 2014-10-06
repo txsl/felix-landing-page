@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Felix Online</title>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,700,400italic,700italic|Noto+Serif:400,700,400italic,700italic|Sorts+Mill+Goudy:400,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="css/grid.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+<div class="container">
+    <header class="grid">
+        <div class="grid__col--1-of-2 felix-logo-banner grid__col--centered">
+        </div>
+        <div class="grid__col grid__col--1-of-4 grid__col--centered felix-actually-centered felix-bump-up">
+            <h2>Our new website is coming soon...</h2>
+        </div>
+        <div class="grid__col grid__col--1-of-2 felix-line-above grid__col--centered">
+            <div class="felix-stage-container felix-stage-current-1">
+                <div class="felix-stage felix-stage-1">
+                    <h3>Sign up for our weekly digest</h3>
+                    <p>Want to sign up for our weekly digest? Enter your email here:</p>
+                    <form id="weekly-digest" action="/ajax.php">
+                        <p id="weekly-digest-error">
+                            <strong>Whoops!</strong> <span id="weekly-digest-error-placeholder"></span>
+                        </p>
+                        <div id="felix-email-field-wrapper" class="felix-email-field-wrapper">
+                            <input type="email" name="email" id="felix-email-field" class="felix-email-field" placeholder="i.love.felix@imperial.ac.uk"></input>
+                            <button type="submit" class="felix-email-field-button">Go</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="felix-stage felix-stage-2">
+                    <h3>Signing up...</h3>
+                </div>
+                <div class="felix-stage felix-stage-3">
+                    <h3>All done! By the way...</h3>
+                    <p>Interested in writing for a section? "Check" out the list below:</p>
+                    <input type="hidden" name="email" value="placeholder@ic.ac.uk" id="felix-section-email-field">
+                    <ul>
+                        <li><label><input type="checkbox" name="section[]" value="news"> News</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="comment"> Comment</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="science"> Science</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="politics"> Politics</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="business"> Business</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="arts"> Arts</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="music"> Music</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="film"> Film</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="fashion"> Fashion</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="games"> Games</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="tech"> Tech</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="travel"> Travel</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="food"> Food</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="tv"> TV</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="books"> Books</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="sport"> Sport</label></li>
+                        <li><label><input type="checkbox" name="section[]" value="features"> Features</label></li>
+                    </ul>
+                    <button type="submit">I'm done</button>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+
+<script>
+(function() {
+    var fwrap = document.getElementById('felix-email-field-wrapper');
+    document.getElementById('felix-email-field').addEventListener('keyup', function() {
+        if (this.value == '') {
+            fwrap.classList.remove('entered');
+        } else {
+            fwrap.classList.add('entered');
+        }
+    });
+
+    var waitABit = null;
+    document.getElementById('felix-email-field').addEventListener('focus', function() {
+        if (waitABit != null) {
+            clearTimeout(waitABit);
+        }
+        fwrap.classList.add('focused');
+    });
+    document.getElementById('felix-email-field').addEventListener('blur', function() {
+        waitABit = setTimeout(function() {
+            waitABit = null;
+            fwrap.classList.remove('focused');
+        }, 50);
+    });
+
+    document.body.classList.add('js');
+})();
+
+(function() {
+    var stages = document.getElementsByClassName("felix-stage-container");
+    var currentStage = 1;
+    var stageWrapper = stages[0];
+
+    var AJAX_PATH = "/ajax.php";
+    var MOCK_MODE = "";
+
+    var advanceStage = function() {
+        stageWrapper.classList.add('felix-stage-done-' + currentStage);
+        stageWrapper.classList.remove('felix-stage-current-' + currentStage);
+        stageWrapper.classList.remove('felix-stage-done-' + (currentStage + 1));
+        stageWrapper.classList.add('felix-stage-current-' + (currentStage + 1));
+        currentStage += 1;
+    };
+    var undoStage = function() {
+        stageWrapper.classList.remove('felix-stage-done-' + currentStage);
+        stageWrapper.classList.remove('felix-stage-current-' + currentStage);
+        stageWrapper.classList.remove('felix-stage-done-' + (currentStage - 1));
+        stageWrapper.classList.add('felix-stage-current-' + (currentStage - 1));
+        currentStage -= 1;
+    };
+    var advanceStageTo = function(target) {
+        while (currentStage < target) {
+            advanceStage();
+        }
+        while (currentStage > target) {
+            undoStage();
+        }
+    };
+
+    var weeklyDigestSubmitFail = function(reason) {
+        document.getElementById('weekly-digest-error-placeholder').innerHTML = reason;
+        document.getElementById('weekly-digest').classList.add('errored');
+        advanceStageTo(1);
+    };
+    var weeklyDigestSubmitOk = function() {
+        advanceStageTo(3);
+    };
+    var weeklyDigestSubmit = function() {
+        var formdata = new FormData();
+        formdata.append("email", document.getElementById('felix-email-field').value);
+        document.getElementById('felix-section-email-field').value = document.getElementById('felix-email-field').value;
+
+        if (MOCK_MODE == "success") {
+            setTimeout(function() {
+                weeklyDigestSubmitOk();
+            }, 1500);
+            return;
+        } else if (MOCK_MODE == "fail") {
+            setTimeout(function() {
+                weeklyDigestSubmitFail("FAIL FOR SOME REASON");
+            }, 1500);
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.onload = function(evt) {
+            if (xhr.status != 200) {
+                weeklyDigestSubmitFail("The server seems to have broken. Try again later?");
+                return;
+            }
+            if (evt.target.response.success) {
+                weeklyDigestSubmitOk();
+            } else {
+                weeklyDigestSubmitFail(evt.response.error);
+            }
+        };
+        xhr.onerror = function(evt) {
+            weeklyDigestSubmitFail("Something went wrong communicating with the server. Try again later?");
+        };
+        xhr.open("POST", AJAX_PATH);
+        xhr.send(formdata);
+    };
+
+    document.getElementById('weekly-digest').addEventListener('submit', function(ev) {
+        ev.preventDefault();
+
+        advanceStage();
+        weeklyDigestSubmit();
+    });
+})();
+</script>
+</body>
+</html>

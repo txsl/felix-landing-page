@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+}
+
+.felix-actually-centered {
+    text-align: center;
+}
+
+.felix-logo-banner {
+    background-image: url(../img/felix-banner.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding-top: 382px;
+}
+
+.felix-bump-up {
+    margin-top: -30px;
+}
+
+.felix-line-above {
+    border-top: 1px solid #aaa;
+}
+
+
+.felix-email-field-wrapper {
+    border: 1px solid black;
+    position: relative;
+    height: 2em;
+    overflow: hidden;
+}
+.felix-email-field {
+    border: none;
+    font-size: 1.5em;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-right: 2em;
+}
+.felix-email-field-button {
+    font-size: 1.5em;
+    border: none;
+    background: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.js .felix-email-field-button {
+    right: -10%;
+    opacity: 0;
+    transition: all 0.2s ease-out;
+}
+
+.felix-email-field-wrapper.entered .felix-email-field-button, .felix-email-field-wrapper.focused .felix-email-field-button {
+    right: 0;
+    opacity: 1;
+}
+
+#weekly-digest-error {
+    background-color: #fdd;
+    border: 2px solid #f33;
+    padding: 0.6em;
+    display: none;
+}
+#weekly-digest.errored #weekly-digest-error {
+    display: block;
+}
+
+.felix-stage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 1;
+
+    transition: all 0.5s ease-out;
+    width: 100%;
+}
+.felix-stage-container {
+    position: relative;
+    width: 100%;
+    height: 700px;
+}
+
+.felix-stage-container:not(.felix-stage-current-1) .felix-stage-1 {
+    right: -100%;
+    opacity: 0;
+}
+.felix-stage-container.felix-stage-done-1 .felix-stage-1 {
+    right: 100%;
+    opacity: 0;
+}
+.felix-stage-container:not(.felix-stage-current-2) .felix-stage-2 {
+    right: -100%;
+    opacity: 0;
+}
+.felix-stage-container.felix-stage-done-2 .felix-stage-2 {
+    right: 100%;
+    opacity: 0;
+}
+.felix-stage-container:not(.felix-stage-current-3) .felix-stage-3 {
+    right: -100%;
+    opacity: 0;
+}
+.felix-stage-container.felix-stage-done-3 .felix-stage-3 {
+    right: 100%;
+    opacity: 0;
+}
