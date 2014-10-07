@@ -8,11 +8,11 @@ $email = $_POST['email'];
 
 if(!strcmp($_POST['want_to_help'], "true"))
 {
-	$involved = True;
+	$involved = 1;
 }
 else
 {
-	$involved = False;
+	$involved = 0;
 }
 
 $email = $con->real_escape_string($email);
@@ -28,7 +28,7 @@ if($con->query("INSERT into emails (address, involved, ip, user_agent) VALUES ('
 	$response = json_encode(array("success" => True,));	
 }
 else{
-	$response = json_encode(array("success" => False, "reason" => 'You appear to have already signed up'));
+	$response = json_encode(array("success" => False, "reason" => 'You appear to have signed up already'));
 }
 
 echo $response;

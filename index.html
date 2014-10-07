@@ -11,7 +11,7 @@
 <div class="felix-logo-banner"></div>
 <div class="container">
     <header class="grid">
-        <div class="grid__col grid__col--1-of-2 grid__col--centered felix-actually-centered felix-bump-up">
+        <div class="grid__col grid__col--1-of-1 grid__col--centered felix-actually-centered felix-bump-up">
             <h2>Our new website is coming soon. <br> In the mean time, read our first issue of the year: </h2>
             <p>
                 <a href="felix-first-issue.pdf"><img alt="Felix Cover" src="img/first-issue-cover.png" class="felix-first-issue-cover"></a>
@@ -19,14 +19,14 @@
         </div>
         
         <div class="grid__col grid__col--1-of-2 felix-line-above grid__col--centered">
-            <h3>Sign up for our weekly digest</h3>
+            <h3>Sign up for our weekly digest, <em>The Pussy</em></h3>
             <form id="weekly-digest" action="ajax.php">
                 <div class="weekly-digest-messages">
                     <p id="weekly-digest-error" class="weekly-digest-message">
                         <strong>Whoops!</strong> <span id="weekly-digest-error-placeholder"></span>
                     </p>
                 </div>
-                <p>Want to sign up for our weekly digest? Enter your email here:</p>
+                <p>Want to hear the latest news and entertainment from Imperial? Enter your email here:</p>
                 <div id="felix-email-field-wrapper" class="felix-email-field-wrapper">
                     <input type="email" name="email" id="felix-email-field" class="felix-email-field" placeholder="i.love.felix@imperial.ac.uk" autofocus></input>
                     <button type="submit" class="felix-email-field-button">Go</button>
@@ -137,6 +137,7 @@
                 weeklyDigestSubmitFail("The server seems to have broken. Try again later?");
                 return;
             }
+            console.log(evt)
             if (evt.target.response.success) {
                 weeklyDigestSubmitOk();
             } else {
