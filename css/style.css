@@ -77,10 +77,10 @@
     background-color: #ddd;
     color: #666;
 }
-.succeeded .felix-email-field-wrapper *, .succeeded .felix-email-field-wrapper {
+/*.succeeded .felix-email-field-wrapper *, .succeeded .felix-email-field-wrapper {
     background-color: #dfd;
     color: #6a6;
-}
+}*/
 
 .weekly-digest-message {
     width: 100%;
@@ -103,6 +103,7 @@
     border: 2px solid #3f3;
 }
 #weekly-digest.succeeded #weekly-digest-success {
+    display: block;
     opacity: 1;
 }
 #weekly-digest.succeeded.done #weekly-digest-success {
